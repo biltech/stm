@@ -1,0 +1,307 @@
+    1  clear
+    2  cd /etc
+    3  ls
+    4  sudo apt-get install python apache2 
+    5  sudo apt-get install libapache2-mod-python
+    6  sudo a2enmod python
+    7  clear
+    8  sudo a2dismod php5
+    9  exit
+   10  clear
+   11  ls
+   12  cd apache2
+   13  cd ~/apache2
+   14  cd /var/www/html/
+   15  ls
+   16  cd /var/www/html/
+   17  cd ~/apache2
+   18  sudo vi apache2.conf
+   19  cd /etc/apache2
+   20  ls
+   21  sudo vi apache2.conf 
+   22  cd ~/apache2
+   23  sudo cp apache2.conf /etc/apache2/apache2.conf 
+   24  sudo /etc/init.d/apache2 restart
+   25  clear
+   26  cd /var/www/
+   27  ls
+   28  cd html
+   29  ls
+   30  sudo cp index.html index.html.bak
+   31  mkdir test_py
+   32  sudo mkdir test_py
+   33  cd test_py/
+   34  sudo touch hello.py
+   35  ls
+   36  sudo vi hello.py
+   37  ls -l
+   38  sudo chmod 755 hello.py 
+   39  cd ..
+   40  ls
+   41  sudo cp test_py/hello.py hello.py
+   42  clear
+   43  ls
+   44  ls -l
+   45  sudo chmod 755 hello.py 
+   46  sudo vi hello.py
+   47  sudo /etc/init.d/apache2 restart
+   48  sudo mv hello.py test_py/hello.py 
+   49  exit
+   50  ls
+   51  sudo rm www
+   52  sudo rm -r www
+   53  ls
+   54  sudo rm -r apache2/
+   55  ls
+   56  exit
+   57  clear
+   58  ls
+   59  cd www/
+   60  ls
+   61  sudo cp ~/www/py_scripts/ /var/www/
+   62  ls
+   63  cd /var/www/
+   64  ls
+   65  cd ~/www/
+   66  ls
+   67  clear
+   68  ls
+   69  sudo cp -r ~/www/py_scripts/ /var/www/
+   70  cd /var/www/
+   71  ls
+   72  cd ~/www/
+   73  sudo cp -r ~/www/s/ /var/www/
+   74  sudo cp -r ~/www/styles/ /var/www/
+   75  cd /var/www/
+   76  ls
+   77  cd py_scripts/
+   78  ls
+   79  cd ~/www
+   80  clear
+   81  ls
+   82  sudo cp -r ~/www/bootstrap/ /var/www/
+   83  sudo cp -r ~/www/jQuery/ /var/www/
+   84  sudo cp ~/www/index.html /var/www/
+   85  sudo cp ~/www/blog.html /var/www/
+   86  sudo cp ~/www/comments.html /var/www/
+   87  cd /var/www/
+   88  ls
+   89  sudo cp ~/www/main.js /var/www/
+   90  ls
+   91  clear
+   92  ls
+   93  cd html/
+   94  ls
+   95  ls -l
+   96  cd test_py/
+   97  ls
+   98  ls -s
+   99  ls -l
+  100  cd ~/www
+  101  ls
+  102  ls -l
+  103  cd /var/www/
+  104  ls -l
+  105  sudo chmod 755 py_scripts/
+  106  ls -l
+  107  cd py_scripts/
+  108  ls -l
+  109  sudo rm paper_scraper-v2.ipynb 
+  110  sudo rm paper_scraper-v3.ipynb 
+  111  sudo rm hist.txt 
+  112  sudo rm hist2.txt 
+  113  sudo rm -r tests
+  114  clear
+  115  ls -l
+  116  sudo rm createTree.py 
+  117  sudo rm pyFunc.py 
+  118  sudo rm test_scraper.py 
+  119  sudo rm paper_scraper-v4.ipynb 
+  120  clear
+  121  ls -l
+  122  sudo rm paper_scraper.pyc
+  123  ls -l
+  124  sudo chmod 755 comments.py
+  125  ls -l
+  126  cd ..
+  127  cd html/
+  128  cd test_py/
+  129  ls -l
+  130  cd ..
+  131  clear
+  132  cd ..
+  133  sudo /etc/init.d/apache2 restart
+  134  cd /etc/apache2/sites-enabled/
+  135  ls
+  136  sudo vi 000-default.conf 
+  137  clear
+  138  sudo /etc/init.d/apache2 restart
+  139  pip install nltk
+  140  sudo apt-get install python-pip
+  141  sudo apt-get install python-bs4
+  142  clear
+  143  sudo apt-get install ipython
+  144  clear
+  145  sudo apt-get update
+  146  sudo apt-get install git
+  147  sudo apt-get install apt-file
+  148  clear
+  149  cd /var/www/py_scripts/
+  150  clear
+  151  ipython
+  152  pip install -U nltk
+  153  sudo apt-get install python-pip
+  154  pip install -U nltk
+  155  ipython
+  156  pip install -U nltk
+  157  sudo pip install -U nltk
+  158  ipython
+  159  nltk.downloader()
+  160  ipython
+  161  pip install -U numpy
+  162  clear
+  163  ipython
+  164  pip install numpy
+  165  easy_install numpy
+  166  sudo pip install numpy
+  167  ipython
+  168  sudo easy_install numpy
+  169  clear
+  170  sudo apt-get install python-numpy 
+  171  ipython
+  172  sudo apt-get install python-scipy python-matplotlib python-pandas python-sympy python-nose
+  173  clear
+  174  ipython
+  175  sudo /etc/init.d/apache2 restart
+  176  ipython
+  177  sudo touch /usr/share/nltk_data
+  178  ipython
+  179  cd /usr/share
+  180  ls
+  181  ls -l
+  182  sudo chmod 755 nltk_data 
+  183  ls -l
+  184  sudo rm -r nltk_data 
+  185  sudo mkdir nltk_data
+  186  ls -l
+  187  cd /var/www/py_scripts/
+  188  ipython
+  189  cd /home
+  190  ls
+  191  ls -l
+  192  cd /usr/share
+  193  ls
+  194  sudo chmod ubuntu:ubuntu nltk_data/
+  195  ls -l
+  196  sudo chown ubuntu:ubuntu nltk_data/
+  197  cd /var/www/py_scripts/
+  198  ipython
+  199  sudo /etc/init.d/apache2 restart
+  200  clear
+  201  exit
+  202  sudo /etc/init.d/apache2 restart
+  203  clear
+  204  cd /var/www/
+  205  ls -l
+  206  cd py_scripts/
+  207  ls -l
+  208  cd /etc/apache2
+  209  sudo vi apache2.conf 
+  210  sudo /etc/init.d apache2 restart
+  211  sudo /etc/init.d/apache2 restart
+  212  exit
+  213  sudo /etc/init.d/apache2 restart
+  214  clear
+  215  sudo /etc/init.d/apache2 restart
+  216  exit
+  217  ls
+  218  cd nltk_data/
+  219  ls
+  220  exit
+  221  clear
+  222  ls
+  223  sudo rm www/
+  224  sudo rm -r www/
+  225  ls
+  226  exit
+  227  clear
+  228  cd /var/www/
+  229  ls
+  230  sudo vi blog.html 
+  231  sudo vi index.html.html 
+  232  sudo vi index.html
+  233  sudo vi blog.html 
+  234  sudo vi comments.html 
+  235  cd py_scripts/
+  236  sudo vi process_form.py
+  237  sudo vi comments.py
+  238  sudo vi process_form.py
+  239  cd ..
+  240  sudo vi index.html 
+  241  sudo vi blog.html 
+  242  sudo vi comments.html 
+  243  cd py_scripts/
+  244  sudo vi process_form.py
+  245  cd ..
+  246  sudo vi index.html 
+  247  clear
+  248  exit
+  249  clear
+  250  cd /var/www/
+  251  sudo vi blog.html 
+  252  clear
+  253  cd /var/www/
+  254  sudo vi index.html 
+  255  cd /var/w
+  256  cd /var/www/
+  257  sudo vi index.html 
+  258  sudo vi blog.html 
+  259  exit
+  260  clear
+  261  cd /var/www/
+  262  sudo vi index.html 
+  263  sudo vi blog.html 
+  264  sudo vi index.html 
+  265  sudo /etc/init.d/apache2 restart
+  266  sudo vi index.html 
+  267  sudo /etc/init.d/apache2 restart
+  268  sudo /etc/init.d/apache2 stop
+  269  sudo /etc/init.d/apache2 start
+  270  sudo /etc/init.d/apache2 restart
+  271  cd py_scripts/
+  272  sudo vi process_form.py
+  273  clear
+  274  history
+  275  exit
+  276  ls
+  277  cd /var/www/
+  278  ls
+  279  cd py_scripts/
+  280  ls
+  281  cd ..
+  282  ls
+  283  history > cmdhist.txt
+  284  sudo history > cmdhist.txt
+  285  cd py_scripts/
+  286  history > cmdhist.txt
+  287  sudo history > cmdhist.txt
+  288  cd .
+  289  cd ..
+  290  ls -l
+  291  clear
+  292  sudo vi
+  293  ls
+  294  cd py_scripts/
+  295  sudo vi testfile.txt
+  296  ls
+  297  sudo rm testfile.txt 
+  298  ls
+  299  sudo vi cmdhist.txt
+  300  ls
+  301  sudo vi cmdhist.txt
+  302  ls
+  303  history > cmdhist.txt
+  304  ls -l
+  305  sudo chown ubuntu:ubuntu cmdhist.txt
+  306  ls -l
+  307  history > cmdhist.txt

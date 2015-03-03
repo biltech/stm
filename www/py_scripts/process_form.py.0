@@ -1,0 +1,113 @@
+
+from mod_python.util import FieldStorage
+import pyFunc
+import createTree
+import cgi
+
+
+def get_info(req):
+
+	error = None
+	full_name = None
+	word = None
+	data = req.form
+	if not ( len( data['full_name'] ) ):
+		error = "Name required"
+	else:
+		full_name = data['full_name']
+		# avoid script injection attack
+		full_name = cgi.escape(full_name)
+
+	if not error:
+		result = 'Input was : ' + full_name
+		word = pyFunc.test(full_name)
+	else:
+		result = 'Error! ' + error
+	# can split here into two funcs : get_info[returns result, word] & index(result,word)
+	strr = createTree.create(word)
+
+	s = """
+<html>
+<head>
+<title>Form Submitted</title>
+<link rel="stylesheet" href="styles/main.css">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+<div class="col-xs-offset-3 col-xs-8"><h4> Processed word : </h4></div>
+<div class="col-xs-offset-2">
+<div id="well-box" class="well col-xs-offset-0 col-xs-8"> "%s" </div>
+</div></div>
+<br>
+<!-- tree -->
+	<div class="tree well">
+	    <ul>
+	        <li>
+	            <span><i class="icon-folder-open"></i> Parent is : "%s" </span> <a href="">Goes somewhere</a>
+	            <ul>
+	                <li>
+	                	<span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
+	                    <ul>
+	                        <li>
+		                        <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li>
+	                	<span><i class="icon-minus-sign"></i> Child</span> <a href="">Goes somewhere</a>
+	                    <ul>
+	                        <li>
+		                        <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+	                        </li>
+	                        <li>
+	                        	<span><i class="icon-minus-sign"></i> Grand Child</span> <a href="">Goes somewhere</a>
+	                            <ul>
+	                                <li>
+		                                <span><i class="icon-minus-sign"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+			                            <ul>
+			                                <li>
+				                                <span><i class="icon-leaf"></i> Great great Grand Child</span> <a href="">Goes somewhere</a>
+			                                </li>
+			                             </ul>
+	                                </li>
+	                                <li>
+		                                <span><i class="icon-leaf"></i> Great Grand Child</span> <a href="">Goes somewhere</a>
+	                                </li>
+	                            </ul>
+	                        </li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </li>
+	        <li>
+	            <span><i class="icon-folder-open"></i> Parent2</span> <a href="">Goes somewhere</a>
+	            <ul>
+	                <li>
+	                	<span><i class="icon-leaf"></i> Child default </span> <a href="">Goes somewhere</a>
+			        </li>
+			        %s
+			    </ul>
+	        </li>
+	    </ul>
+	</div>
+<br>
+<script type="text/javascript" src="jQuery/jquery-2.1.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="main.js"></script>	
+</body>
+</html>
+"""
+
+	if data.has_key( 'async' ):
+		req.content_type = 'text/plain'
+		s = result + s
+	else:
+		req.content_type = 'text/html'
+		#s = result + s
+		#pass
+
+	return s % (word, word, strr)
+
+
+

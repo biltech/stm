@@ -1,0 +1,14 @@
+.myPanel{
+	border: 1px solid #2A573B;
+	border-radius: 5px;
+	box-shadow: 0px 0px 4px #ccc;
+	margin: 3%;
+}
+
+.myPanel{
+	background: #9EE8BA;
+	border: 1px solid #2A573B;
+	border-radius: 5px 5px 5px 5px;
+	color: #2A573B;
+	padding: 10px 20px;
+}

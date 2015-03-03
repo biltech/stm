@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+
+from bs4 import BeautifulSoup
+import requests, urllib2, re
+from pprint import pprint
+import collections
+import time
+
+def getSiteData(url):
+    # return article related info from the souped site data
+    extract = {}
+    response = requests.get(url)
+    extract['soup'] = BeautifulSoup(response.text, 'html.parser')
+    try:
+        extract['Article name'] = extract['soup'].find("meta", {"name" : "citation_title"})['content']
+        extract['Authors'] = extract['soup'].find("meta", {"name" : "citation_authors"})['content']
+        extract['Journal Title'] = extract['soup'].find("meta", {"name" : "citation_journal_title"})['content']
+        extract['Keywords'] = extract['soup'].find("meta", {"name" : "citation_keywords"})['content'] 
+    except Exception as e:
+        pass
+    try: 
+        extract['arXiv link'] = extract['soup'].findAll('a', href=re.compile('[&amp;]link_type=PREPRINT'))[0].get('href')
+        extract['citations link'] = extract['soup'].findAll('a', href=re.compile('[&amp;]link_type=CITATIONS'))[0].get('href')       
+    except Exception as e:
+        pass
+    
+    return extract
+
+def getAbstract(url):
+    # return abstract from the extracted site data
+    extracted = getSiteData(url)
+    return extracted['soup'].blockquote.contents[2]
+
+def arXivAds(url):
+    # use arXiv link to goto ads
+    arXiv_id = url.split('abs/')[1]
+    ads_search = requests.get('http://adsabs.harvard.edu/cgi-bin/basic_connect?qsearch=arxiv:' + arXiv_id)
+    extract = BeautifulSoup(ads_search.text, 'html.parser')
+    adslink = extract.findAll('a', href=re.compile('http://adsabs.harvard.edu/cgi-bin/nph-data_query?'))[0].get('href')
+    return adslink
+
+def citeAuthors(url):
+    # get names of last authors of papers citing the main 
+    #url = arXivAds(url)
+    preprint = getSiteData(url)
+    lastAuts = []; titl = []
+    try:
+    	titl = preprint['Article name']
+        citeData = getSiteData(preprint['citations link']) # soup of the citations link page
+        sublinks = citeData['soup'].findAll('a', href = re.compile('link_type=ABSTRACT')) # get links of individual citations
+        sublink = [sublinks[w].get('href') for w in range(0, len(sublinks))] 
+        sub = list(set(sublink)) # keeping only unique links to the citation pages
+        citingAuthors = [''.join(node.findAll(text=True)) for node in citeData['soup'].findAll('td', align=re.compile('left'), valign=re.compile('top'), width=re.compile('25%'))]
+        lastAuts = [0]*len(citingAuthors)
+        for w in xrange(0, len(citingAuthors)):
+            try:
+                lastAuts[w] = (citingAuthors[w].split(';')[-1]).encode('utf-8')  # to change values from unicode to string // .encode() is for special characters
+            except Exception as e:
+                print e
+            pass
+    except Exception as e:
+        pass
+    autLink = dict(zip(lastAuts, sub)) # dict of lastAuthors and links to those articles
+    return titl, lastAuts, autLink
+
+def auts(url):
+	if url is not None:
+		url = arXivAds(url)
+		artName, autList = citeAuthors(url) 
+		str_ar = []
+		for item in autList:
+			if item is not None:
+				str_ar.append("<li> <span><i class='icon-leaf'></i> " + item + " </span><a href=""> Goes somewhere</a> </li>") 
+		return str(artName), str(len(str_ar)), "".join(str_ar)
+	else:
+		return None, None, None
+
+

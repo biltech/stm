@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>StemSeeker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <style type="text/css">
+	.navbar{
+		margin-top: 20px;
+	}
+  </style>
+</head>
+
+<body>
+<div class="container">
+    <nav role="navigation" class="navbar navbar-inverse">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand"><h4>StemSeeker</h4></a>
+        </div>
+        <!-- Collection of nav links, forms, and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html"><h4>Home</h4></a></li>
+                <li ><a href="blog.html"><h4>Blog</h4></a></li>
+				<li ><a href="comments.html"><h4>Comments</h4></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+  
+<div class="bs-ex" id="userIn">
+      
+      <form id="search_form" action="py_scripts/process_form.py/get_info" method="post">
+          <div class="row">
+
+             <div class="container" >
+                <div class="well">
+                    <p> Find what new lines of research originate from a research article.  In this experiment we test how the list of citations to an article can give us insights into the ideas it germinates.  We will be using the e-print repository <a href="http://arxiv.org" class="href">arxiv.org</a> for this purpose.  Supply the arxiv link of any paper that interests you in the search box.  A randomly generated article link is provided as an example.  The output consists of key phrases extracted using python's natural language processing named-entity search.  The complete citation tree is also displayed to check how close these entities reflect actual primary topics.  Choose how many layers down the citation tree you want to search in the 'Layers' select box. At present the option is for two layers only.</p>
+                </div>
+              </div>
+              <br> <br> <br> <br>
+              <div class="col-xs-offset-3 col-xs-6">
+                  <div class="input-group input-group-lg" >
+                      <input type="text" name="full_name" class="form-control" placeholder="Enter arXiv url&hellip;">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-lg ">Submit</button>
+                      </span>
+                  </div>
+                  <br>
+		<div class="row"><div class="input-group-lg">
+	                  <div class="col-xs-offset-0.5 col-md-4">
+        	            <div class="input-group input-group-lg">
+                	      <span class="input-group-addon" id="sizing-addon1"> Layers </span>
+                      		<span class="input-group-addon">
+                                  <input type="radio" name="layerss" value="1" checked>   1   
+                                  <input type="radio" name="layerss" value="2">  2
+                              	</span> 
+                        	</span>
+                    		</div>                  
+                  	</div>
+	
+
+                  	<div class="col-xs-offset-0.5 col-md-4">
+                    		<div class="input-group input-group-lg">
+                      		<span class="input-group-addon" id="sizing-addon2"> Threshold </span>
+                      		<input type="text" name="threshold" class="form-control" placeholder=" 1 " aria-describedby="sizing-addon2">
+                    	</div>
+		</div></div>
+                  </div>
+
+              </div>
+          </div>
+            <div class="col-xs-offset-4 col-xs-8">
+              <br>
+              <h5> Example random link : <a href="#" id="Url"><span id="number"></span></a> </h4> 
+          </div>
+          <br>
+      </form>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="jQuery/jquery-2.1.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready( function () {
+      // Temporary text display during search.
+          var container = $('<div id="tmpTxt" class="col-xs-offset-3 col-xs-8"><h3>Searcing, please wait... </h3></div>');
+
+      $('#search_form').submit( function () {
+        $(this).hide(); //fadeOut( 1);
+   
+        form_contents = $(this).serialize() ; //+ "&async=true";
+        form_action = $(this).attr( 'action' );
+        //console.log("form input " + form_contents);
+   
+        $.ajax( {
+          type: 'post',
+          data: form_contents,
+          url: form_action,
+          success: function( result ) {
+            $('#search_form').before( "<div><tt>" +
+            result + "</tt></div>" );
+          }
+        } );   // end ajax
+        
+                container.appendTo('#userIn');
+
+                return false;
+
+      } );  // end .submit
+
+      function randomString() {
+        var chars = "0123456789";
+        var string_length = 3;
+        var randomstring = '';
+	var ryr = Math.floor(Math.random() * chars.length);
+        for (var i=0; i<string_length; i++) {
+          var rnum = Math.floor(Math.random() * chars.length);
+          randomstring += chars.substring(rnum,rnum+1);
+        }
+        randomstring = 'http://arxiv.org/abs/090' + ryr + '.0' + randomstring
+        return randomstring;
+      }
+      var arXlink = randomString();
+      $('#number').text(arXlink);
+      document.getElementById('Url').href = arXlink;
+
+    } );
+  </script>
+
+</body>
+</html>
